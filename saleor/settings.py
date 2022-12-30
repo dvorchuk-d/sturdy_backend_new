@@ -84,9 +84,14 @@ DATABASE_CONNECTION_DEFAULT_NAME = "default"
 # This variable should be set to `replica`
 DATABASE_CONNECTION_REPLICA_NAME = "default"
 
+POSTGRES_USER=os.environ.get("POSTGRES_USER", "saleor")
+POSTGRES_PASSWORD=os.environ.get("POSTGRES_PASSWORD", "saleor")
+POSTGRES_DB=os.environ.get("POSTGRES_DB", "saleor")
+POSTGRES_PORT=os.environ.get("POSTGRES_PORT", 5432)
+
 DATABASES = {
     DATABASE_CONNECTION_DEFAULT_NAME: dj_database_url.config(
-        default="postgres://saleor:saleor@localhost:5432/saleor",
+        default=f"postgres://{POSTGRES_USER}:{POSTGRES_PASSWORD}@127.0.0.1:{POSTGRES_PORT}/{POSTGRES_DB}",
         conn_max_age=DB_CONN_MAX_AGE,
     ),
     # TODO: We need to add read only user to saleor platfrom, and we need to update
